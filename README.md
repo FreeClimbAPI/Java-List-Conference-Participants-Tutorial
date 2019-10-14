@@ -1,4 +1,4 @@
-# Node - List Conference Participants Tutorial
+# Java - List Conference Participants Tutorial
 
 This project serves as a guide to help you build an application with Persephony. Specifically, the project will:
 
@@ -10,20 +10,16 @@ To get started using a persephony account, follow the instructions [here](https:
 
 ## Setting up the Tutorial
 
-1. Install the node packages necessary using command:
-
-   ```bash
-   $ yarn install
-   ```
-
-2. Configure environment variables.
+1. Configure environment variables.
 
    | ENV VARIABLE            | DESCRIPTION                                                                                                                                                                             |
    | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
    | ACCOUNT_ID              | Account ID which can be found under [API Keys](https://www.persephony.com/dashboard/portal/account/authentication) in Dashboard                                                         |
    | AUTH_TOKEN              | Authentication Token which can be found under [API Keys](https://www.persephony.com/dashboard/portal/account/authentication) in Dashboard                                               |
+   | HOST | The host url where your application is hosted (e.g. yourHostedApp.com) |
 
-3. Provide a value for the variable `conferenceId` which is a conference id. To learn more about conferences go [here](https://docs.persephony.com/reference/conferences-2).
+
+2. Provide a value for the variable `agentPhoneNumber` which is a verified phone number to be called. To learn more about verified phone numbers go [here](https://docs.persephony.com/docs/connecting-calls).
 
 ## Building and Runnning the Tutorial
 

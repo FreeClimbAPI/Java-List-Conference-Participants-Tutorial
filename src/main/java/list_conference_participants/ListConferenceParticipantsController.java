@@ -83,8 +83,7 @@ public class ListConferenceParticipantsController {
       script.add(new Say("Please wait while we attempt to connect you to an agent."));
 
       // Make OutDial request once conference has been created
-      String agentPhoneNumber = "+12175527482";// lookupAgentPhoneNumber(); // implementation of
-                                               // lookupAgentPhoneNumber() is left up to the developer
+      String agentPhoneNumber = "";
       OutDial outDial = new OutDial(agentPhoneNumber, conferenceCreateActionCallback.getFrom(),
           baseUrl + "/OutboundCallMade" + "/" + conferenceId, baseUrl + "/OutboundCallConnected" + "/" + conferenceId);
       outDial.setIfMachine(OutDialIfMachine.HANGUP);

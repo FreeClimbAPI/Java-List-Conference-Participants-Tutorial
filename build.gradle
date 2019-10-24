@@ -38,7 +38,8 @@ targetCompatibility = 1.8
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-web"
     testCompile "junit:junit"
-    compile 'com.github.PersephonyAPI:java-sdk:1.0.0'
+    // TODO: replace with new reference to JitPack (EX: compile 'com.github.PersephonyAPI:java-sdk:1.0.0')
+    compile project(':java-sdk')
 }
 
 sourceSets {

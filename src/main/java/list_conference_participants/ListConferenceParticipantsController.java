@@ -1,8 +1,9 @@
 /* 
+ * 1. PROVIDE A VALUE FOR THE VARIABLE `agentPhoneNumber`
  * 1. AFTER RUNNING PROJECT WITH COMMAND: 
  *    `gradle build && java -Dserver.port=0080 -jar build/libs/gs-spring-boot-0.1.0.jar`
- * 2. CALL NUMBER ASSOCIATED WITH THE ACCOUNT (CONFIGURED IN PERSEPHONY DASHBOARD)
- * 3. EXPECT TO BE JOINED TO A CONFERENCE WITH AGENT_PHONE
+ * 2. CALL NUMBER ASSOCIATED WITH THE ACCOUNT (CONFIGURED IN FreeClimb DASHBOARD)
+ * 3. EXPECT TO BE JOINED TO A CONFERENCE WITH `agentPhoneNumber`
  * 4. RUN CURL COMMAND TO GET LIST OF QUEUES:
  *    `curl {baseUrl}/conferenceParticipants`
  * 5. EXPECT JSON TO BE RETURNED:
@@ -20,29 +21,29 @@ package main.java.list_conference_participants;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vailsys.persephony.percl.*;
+import com.vailsys.freeclimb.percl.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.vailsys.persephony.api.PersyException;
-import com.vailsys.persephony.webhooks.conference.ConferenceCreateActionCallback;
+import com.vailsys.freeclimb.api.FreeClimbException;
+import com.vailsys.freeclimb.webhooks.conference.ConferenceCreateActionCallback;
 
-import com.vailsys.persephony.webhooks.percl.OutDialActionCallback;
+import com.vailsys.freeclimb.webhooks.percl.OutDialActionCallback;
 
-import com.vailsys.persephony.webhooks.StatusCallback;
-import com.vailsys.persephony.api.call.CallStatus;
+import com.vailsys.freeclimb.webhooks.StatusCallback;
+import com.vailsys.freeclimb.api.call.CallStatus;
 
-import com.vailsys.persephony.webhooks.conference.LeaveConferenceUrlCallback;
+import com.vailsys.freeclimb.webhooks.conference.LeaveConferenceUrlCallback;
 
-import com.vailsys.persephony.api.PersyClient;
-import com.vailsys.persephony.api.conference.ConferenceUpdateOptions;
-import com.vailsys.persephony.api.conference.ConferenceStatus;
+import com.vailsys.freeclimb.api.FreeClimbClient;
+import com.vailsys.freeclimb.api.conference.ConferenceUpdateOptions;
+import com.vailsys.freeclimb.api.conference.ConferenceStatus;
 
-import com.vailsys.persephony.api.conference.participant.Participant;
-import com.vailsys.persephony.api.conference.participant.ParticipantList;
-import com.vailsys.persephony.api.conference.participant.ParticipantsSearchFilters;
+import com.vailsys.freeclimb.api.conference.participant.Participant;
+import com.vailsys.freeclimb.api.conference.participant.ParticipantList;
+import com.vailsys.freeclimb.api.conference.participant.ParticipantsSearchFilters;
 import java.util.ArrayList;
 
 @RestController
@@ -54,9 +55,9 @@ public class ListConferenceParticipantsController {
 
   public String conferenceId;
 
-  // To properly communicate with Persephony's API, set your Persephony app's
+  // To properly communicate with FreeClimb's API, set your FreeClimb app's
   // VoiceURL endpoint to '{yourApplicationURL}/InboundCall' for this example
-  // Your Persephony app can be configured in the Persephony Dashboard
+  // Your FreeClimb app can be configured in the FreeClimb Dashboard
   @RequestMapping(value = {
       "/InboundCall" }, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<?> inboundCall() {
@@ -89,7 +90,7 @@ public class ListConferenceParticipantsController {
       outDial.setIfMachine(OutDialIfMachine.HANGUP);
       script.add(outDial);
 
-    } catch (PersyException pe) {
+    } catch (FreeClimbException pe) {
       System.out.println(pe.getMessage());
     }
 
@@ -113,7 +114,7 @@ public class ListConferenceParticipantsController {
       addToConference.setLeaveConferenceUrl(baseUrl + "/LeftConference");
       script.add(addToConference);
 
-    } catch (PersyException pe) {
+    } catch (FreeClimbException pe) {
       System.out.println(pe.getMessage());
     }
 
@@ -138,7 +139,7 @@ public class ListConferenceParticipantsController {
       }
 
       script.add(new AddToConference(conferenceId, statusCallback.getCallId()));
-    } catch (PersyException pe) {
+    } catch (FreeClimbException pe) {
       System.out.println(pe.getMessage());
     }
 
@@ -156,15 +157,15 @@ public class ListConferenceParticipantsController {
       // command since PerCL is ignored if the caller hangs up.
       terminateConference(leaveConferenceUrlCallback.getConferenceId());
 
-    } catch (PersyException pe) {
+    } catch (FreeClimbException pe) {
       System.out.println(pe.getMessage());
     }
 
     return new ResponseEntity<>("", HttpStatus.OK);
   }
 
-  private static void terminateConference(String conferenceId) throws PersyException {
-    PersyClient client = new PersyClient(System.getenv("ACCOUNT_ID"), System.getenv("AUTH_TOKEN"));
+  private static void terminateConference(String conferenceId) throws FreeClimbException {
+    FreeClimbClient client = new FreeClimbClient(System.getenv("ACCOUNT_ID"), System.getenv("AUTH_TOKEN"));
 
     // Create the ConferenceUpdateOptions and set the status to terminated
     ConferenceUpdateOptions conferenceUpdateOptions = new ConferenceUpdateOptions();
@@ -178,7 +179,7 @@ public class ListConferenceParticipantsController {
     filters.setTalk(true);
     filters.setListen(true);
     try {
-      PersyClient client = new PersyClient(accountId, authToken); // Create PersyClient object
+      FreeClimbClient client = new FreeClimbClient(accountId, authToken); // Create FreeClimbClient object
       // Invoke get method to retrieve initial list of conference participant info
       ParticipantList participantList = client.conferences.getParticipantsRequester(conferenceId).get();
 
@@ -199,7 +200,7 @@ public class ListConferenceParticipantsController {
         }
         return list;
       }
-    } catch (PersyException ex) {
+    } catch (FreeClimbException ex) {
       ex.printStackTrace();
     }
     return null;

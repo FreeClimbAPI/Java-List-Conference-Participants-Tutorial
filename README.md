@@ -1,4 +1,4 @@
-# Java - List Conference Participants Tutorial
+# Java - List Participants Tutorial
 
 This project serves as a guide to help you build an application with FreeClimb. View this tutorial on [FreeClimb.com](https://docs.freeclimb.com/docs/list-conference-participants#section-java). Specifically, the project will:
 

@@ -48,10 +48,10 @@ import java.util.ArrayList;
 
 @RestController
 public class ListConferenceParticipantsController {
-  // Get base URL, accountID, and authToken from environment variables
+  // Get base URL, accountID, and apiKey from environment variables
   private String baseUrl = System.getenv("HOST");
   private String accountId = System.getenv("ACCOUNT_ID");
-  private String authToken = System.getenv("AUTH_TOKEN");
+  private String apiKey = System.getenv("API_KEY");
 
   public String conferenceId;
 
@@ -165,7 +165,7 @@ public class ListConferenceParticipantsController {
   }
 
   private static void terminateConference(String conferenceId) throws FreeClimbException {
-    FreeClimbClient client = new FreeClimbClient(System.getenv("ACCOUNT_ID"), System.getenv("AUTH_TOKEN"));
+    FreeClimbClient client = new FreeClimbClient(System.getenv("ACCOUNT_ID"), System.getenv("API_KEY"));
 
     // Create the ConferenceUpdateOptions and set the status to terminated
     ConferenceUpdateOptions conferenceUpdateOptions = new ConferenceUpdateOptions();
@@ -179,7 +179,7 @@ public class ListConferenceParticipantsController {
     filters.setTalk(true);
     filters.setListen(true);
     try {
-      FreeClimbClient client = new FreeClimbClient(accountId, authToken); // Create FreeClimbClient object
+      FreeClimbClient client = new FreeClimbClient(accountId, apiKey); // Create FreeClimbClient object
       // Invoke get method to retrieve initial list of conference participant info
       ParticipantList participantList = client.conferences.getParticipantsRequester(conferenceId).get();
 

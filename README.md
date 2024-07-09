@@ -1,6 +1,6 @@
-# Java - List Participants Tutorial
+# Java - List Participants How-To Guide
 
-This project serves as a guide to help you build an application with FreeClimb. View this tutorial on [FreeClimb.com](https://docs.freeclimb.com/docs/list-conference-participants#section-java). Specifically, the project will:
+This project serves as a guide to help you build an application with FreeClimb. View this how-to guide on [FreeClimb.com](https://docs.freeclimb.com/docs/list-conference-participants#section-java). Specifically, the project will:
 
 - List the participants of the specified conference
 
@@ -8,7 +8,7 @@ This project serves as a guide to help you build an application with FreeClimb. 
 
 To get started using a FreeClimb account, follow the instructions [here](https://docs.freeclimb.com/docs/getting-started-with-freeclimb).
 
-## Setting up the Tutorial
+## Setting up the how-to guide
 
 1. Configure environment variables.
 
@@ -20,7 +20,7 @@ To get started using a FreeClimb account, follow the instructions [here](https:/
 
 2. Provide a value for the variable `agentPhoneNumber` which is a verified phone number to be called. To learn more about verified phone numbers go [here](https://docs.freeclimb.com/docs/connecting-calls).
 
-## Building and Runnning the Tutorial
+## Building and runnning the how-to guide
 
 1. Build and run the application using command:
 
